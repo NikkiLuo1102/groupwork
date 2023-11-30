@@ -1,0 +1,105 @@
+<!--
+ * @Description: 
+ * @Version: 
+ * @Author: fsh
+ * @Date: 2023-02-21 22:27:11
+ * @LastEditTime: 2023-11-29 13:27:04
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Konchok</title>
+    <!-- <link rel="stylesheet" type="text/css" href="css/style.css" /> -->
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            font-family: "楷体";
+        }
+        header{
+            background-image:linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url(https://images.pexels.com/photos/1303098/pexels-photo-1303098.jpeg?cs=srgb&dl=pexels-george-dolgikh-1303098.jpg&fm=jpg);
+            height: 100vh;
+            background-size: cover;
+            background-position: center;
+        }
+    
+        ul{
+            float: right;
+            list-style-type: none;
+            margin: 15px;
+        }
+        ul li{
+            display: inline-block;
+        }
+    
+        ul li a{
+            text-decoration: none;
+            color: #fff;
+            padding: 5px 20px;
+            border: 1px solid transparent;
+            transition: .6s ease;
+            border-radius: 20px;
+        }
+    
+        ul li a:hover{
+            background-color: #fff;
+            color: #000;
+        }
+        ul li.active a{
+            background-color: #fff;
+            color: #000;
+        }
+        .title{
+            position: absolute;
+            top:50%;
+            left:50%;
+            transform: translate(-50%,-50%);
+        }
+        .title h1{
+            color: #fff;
+            font-size: 70px;
+            font-family: Century Gothic;
+        }
+        .scrolling-text {
+            border: 5px solid crimson; /* 添加黑色边框 */
+            padding: 10px; 
+            color: #fff;
+            font-size: 35px;
+            font-family: Century Gothic;
+            position: absolute;
+            top: 20%;
+            left: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            animation: scrollText 20s linear infinite; /* 10s 是滚动的持续时间，可以根据需要调整 */
+        }
+        /* 关键帧动画 */
+        @keyframes scrollText {
+            from {
+                transform: translateX(-100%);
+            }
+            to {
+                transform: translateX(450%);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="main">
+            <ul>
+                <li class="active"><a href="/login">LOGIN</a></li>
+            </ul>
+        </div>
+        <div class="scrolling-text">
+            <p>Don't hesitate, just buy!</p>
+        </div>
+        <div class="title">
+            <h1></span>Compare <span style="color: crimson;">It</h1>
+        </div>
+    </header>
+</body>
+</html>

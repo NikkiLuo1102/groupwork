@@ -1,0 +1,101 @@
+<!--
+ * @Description: login page
+ * @Version: 1.0
+ * @Author: fsh
+ * @Date: 2023-02-19 14:09:26
+ * @LastEditTime: 2023-11-28 19:03:57
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+     <!--引入js文件-->
+     <!-- <script src="__JS__/bootstrap.js"></script>
+     <script src="__JS__/jquery-3.6.3.min.js"></script> -->
+    <link rel="stylesheet" href="{{ url_for('static',filename='welcome.css') }}">
+
+    
+</head>
+<script type="text/javascript">  
+    function check2pwd() {  
+        if(first_name.value==""){
+            alert("first name is empty");
+            return
+        }
+
+        if(last_name.value==""){
+            alert("last name is empty");
+            return
+        }
+
+        var re = /(^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+)|(^$)/;
+		if(!re.test($("#email").val())) {
+			alert("wrong email format！");
+			return;
+		}
+
+        if(email.value==""){
+            alert("email is empty");
+            return
+        }
+
+        if(password.value==""){
+            alert("password is empty");
+            return
+        }
+        
+
+        if(password.value != passwordnot.value) {  
+            alert("re-enter password mismatch!")
+            password.value = "";  
+            passwordnot.value = "";
+            return
+        }
+
+        if($("#password").val().length > 16 || $("#password").val().length < 6) { // 上线时长度改为6-16
+			alert("length of password : 6-16");
+			return;
+		}
+
+        var info = {'first_name': first_name.value, 'last_name':last_name.value,
+        'email':email.value, 'password':password.value};
+        $.ajax({
+            type:'post',
+		    url: "{:url('login/createUser')}",
+		    data: info,
+            success: function(d) {
+                alert("register successfully!");
+                window.location.href = "/login/index";
+			},
+            error: function(data){
+                alert("register fail, please try again!");
+            }
+        });
+
+        // window.location.href="/login/createUser";
+        
+    
+    }
+
+
+</script>
+<body>
+    <div class="container">
+        <div class="login-wrapper">
+            <div class="header">Create Account</div>
+            <div class="form-wrapper">
+                first name:<input type="text" first name: name="first_name" id = "first_name" placeholder="first name" class="input-item">
+                last name: <input type="text" name="last_name" id = "last_name" placeholder="last name" class="input-item">
+                email address:<input type="text" name="email" id = "email" placeholder="email address" class="input-item">
+                password:<input type="password" id = "password" name="password" placeholder="password" class="input-item">
+                re-enter password:<input type="password" id = "passwordnot" name="passwordnot" placeholder="re-enter password" class="input-item">
+                <div><input type="submit" name = "createUser" class="btn" value = "Create Account" onclick="check2pwd()"></div> 
+            </div>
+
+        </div>
+    </div>
+</body>
+
+</html>

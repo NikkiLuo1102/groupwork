@@ -1,0 +1,66 @@
+<!--
+ * @Description: login page
+ * @Version: 1.0
+ * @Author: fsh, https://blog.csdn.net/bhegi_seg/article/details/123394504
+ * @Date: 2023-02-19 14:09:26
+ * @LastEditTime: 2023-11-28 19:02:36
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='welcome.css') }}">
+
+</head>
+
+<body>
+    
+    <div class="container">
+        <div class="login-wrapper">
+            <div class="header">Login</div>
+            <div class="form-wrapper">
+            <form action = "/login" method="post">
+                <input type="text" name="username" id="username" placeholder="username" class="input-item">
+                <input type="password" name="password" id="password" placeholder="password" class="input-item">
+                <div><input type="submit" name = "login" class="btn" value = "Login" onclick="loginSystem()"></div> 
+            </form>
+
+            <script>
+                document.getElementById('loginForm').addEventListener('submit', async function(event) {
+                    event.preventDefault(); // 阻止表单默认提交行为
+        
+                    const formData = new FormData(this);
+                    const username = formData.get('username');
+                    const password = formData.get('password');
+        
+                    const response = await fetch('/login', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ username, password })
+                    });
+        
+                    const responseData = await response.json();
+        
+                    if (response.ok) {
+                        alert(responseData.message); // 显示成功信息
+                        // 进行登录成功后的操作，比如页面跳转等
+                    } else {
+                        alert(responseData.message); // 显示错误信息
+                    }
+                });
+            </script>
+            
+            </div>
+            <div class="msg">
+                Don't have account?
+                <a href="login/createPage">Sign up</a>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>
