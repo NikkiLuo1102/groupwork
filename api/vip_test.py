@@ -47,11 +47,11 @@ with open('商品.csv', mode='w', encoding='utf-8', newline='') as f:
     ])
     csv_writer.writeheader()
 
-    for i in range(0, len(products), 50):
-        product_id = ','.join(products[i:i+50])
+for i in range(0, len(products), 50):
+    product_id = ','.join(products[i:i+50])
         
-        link = 'https://mapi.vip.com/vips-mobile/rest/shopping/pc/product/module/list/v2'
-        params = {
+    link = 'https://mapi.vip.com/vips-mobile/rest/shopping/pc/product/module/list/v2'
+    params = {
         # 'callback': 'getMerchandiseDroplets2',
         'app_name': 'shop_pc',
         'app_version': '4.0',
@@ -71,11 +71,11 @@ with open('商品.csv', mode='w', encoding='utf-8', newline='') as f:
         'context': '',
         '_': '1689250387628',
     }
-        json_data = requests.get(url=link, params=params, headers=headers).json()
+    json_data = requests.get(url=link, params=params, headers=headers).json()
 
-        for index in json_data['data']['products']:
-            attr = ','.join([j['value'] for j in index['attrs']])
-            dit = {
+    for index in json_data['data']['products']:
+        attr = ','.join([j['value'] for j in index['attrs']])
+        dit = {
                 '标题': index['title'],
                 '品牌': index['brandShowName'],
                 '原价': index['price']['marketPrice'],
@@ -83,6 +83,6 @@ with open('商品.csv', mode='w', encoding='utf-8', newline='') as f:
                 '折扣': index['price']['mixPriceLabel'],
                 '商品信息': attr,
                 '详情页': f'https://detail.vip.com/detail-{index["brandId"]}-{index["productId"]}.html',
-            }
-            csv_writer.writerow(dit)
-            print(dit)
+        }
+        csv_writer.writerow(dit)
+        print(dit)

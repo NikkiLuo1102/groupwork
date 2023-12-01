@@ -20,7 +20,7 @@ data = {
     'mars_cid': '1689245318776_e2b4a7b51f99b3dd6a4e6d356e364148',
     'wap_consumer': 'a',
     'standby_id': 'nature',
-    'keyword': '泳圈',
+    'keyword': '耐克运动鞋',
     'lv3CatIds': '',
     'lv2CatIds': '',
     'lv1CatIds': '',
@@ -47,13 +47,13 @@ sheet = workbook.active
 
 # 设置表头
 header = [
-    '标题', '品牌', '原价', '售价', '折扣', '商品信息', '详情页'
+    '标题', '品牌', '售价', '图片', '商品信息', '详情页'
 ]
 sheet.append(header)
 
+min_price_row=[]
 for i in range(0, len(products), 50):
     product_id = ','.join(products[i:i+50])
-        
     link = 'https://mapi.vip.com/vips-mobile/rest/shopping/pc/product/module/list/v2'
     params = {
         # 'callback': 'getMerchandiseDroplets2',
@@ -82,13 +82,15 @@ for i in range(0, len(products), 50):
         row = [
             index['title'],
             index['brandShowName'],
-            index['price']['marketPrice'],
             index['price']['salePrice'],
-            index['price']['mixPriceLabel'],
+            index['squareImage'],
             attr,
             f'https://detail.vip.com/detail-{index["brandId"]}-{index["productId"]}.html',
         ]
+        if len(min_price_row)==0 or float(row[2])<float(min_price_row[2]):
+            min_price_row=row
         sheet.append(row)
-
+        
 # 保存数据到Excel文件
 workbook.save('商品.xlsx')
+print(min_price_row)
