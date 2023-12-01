@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, jsonify
 import psycopg2 as db
-# import hashlib
+import hashlib
 
 # #创建哈希
 # def hash_password(password):
@@ -56,7 +56,7 @@ def submit():
     cursor.execute(query, (username,))
     user = cursor.fetchone()
     print(password,user[6])
-    if user and password==user[6]:  
+    if user and hashlib.md5(password.encode()).hexdigest()==user[6]:  
         return jsonify({'message': 'Login successful'})
     else:
         return jsonify({'message': 'Invalid credentials'}), 401
